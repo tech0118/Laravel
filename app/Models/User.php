@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role_id'
     ];
 
     /**
@@ -55,5 +55,14 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function managedTasks()
+    {
+        return $this->hasMany(Task::class, 'manager_id');
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

@@ -18,37 +18,37 @@ class AdminSeeder extends Seeder
             'name'=>'admin',
             'email'=>'admin@gmail.com',
             'password'=>Hash::make('admin@123'),
-            'role'=>1
+            'role_id'=>1
         ]);
         User::create([
             'name'=>'yash',
             'email'=>'yash@gmail.com',
             'password'=>Hash::make('1234'),
-            'role'=>2
+            'role_id'=>2
         ]);
         User::create([
             'name'=>'manav',
             'email'=>'manav@gmail.com',
             'password'=>Hash::make('1234'),
-            'role'=>2
+            'role_id'=>2
         ]);
         User::create([
             'name'=>'vraj',
             'email'=>'vraj@gmail.com',
             'password'=>Hash::make('1234'),
-            'role'=>2
+            'role_id'=>2
         ]);
         User::create([
             'name'=>'pratik',
             'email'=>'pratik@gmail.com',
             'password'=>Hash::make('1234'),
-            'role'=>2
+            'role_id'=>2
         ]);
         User::create([
             'name'=>'vishal',
             'email'=>'vishal@gmail.com',
             'password'=>Hash::make('1234'),
-            'role'=>2
+            'role_id'=>2
         ]);
     }
 }

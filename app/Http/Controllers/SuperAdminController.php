@@ -32,6 +32,7 @@ class SuperAdminController extends Controller
 
         $user->tasks()->sync($request->task_ids);
 
+         
         return redirect()->route('superadmin.users.list')->with('success', 'Tasks assigned successfully.');
     }
 }

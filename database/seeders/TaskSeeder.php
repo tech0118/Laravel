@@ -14,20 +14,24 @@ class TaskSeeder extends Seeder
     public function run(): void
     {
         Task::create([
-            'title'=>"task1",
-            'description'=>"Nothing"
+            'title' => "task1",
+            'description' => "Nothing",
+            'deadline' => now()->addDays(10)
         ]);
         Task::create([
-            'title'=>"task2",
-            'description'=>"Nothing"
+            'title' => "task2",
+            'description' => "Nothing",
+            'deadline' => now()->addDays(20)
         ]);
         Task::create([
-            'title'=>"task3",
-            'description'=>"Nothing"
+            'title' => "task3",
+            'description' => "Nothing",
+            'deadline' => now()->addDays(2)
         ]);
         Task::create([
-            'title'=>"task4",
-            'description'=>"Nothing"
+            'title' => "task4",
+            'description' => "Nothing",
+            'deadline' => now()->addDays(30)
         ]);
     }
 }

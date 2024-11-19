@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,13 +12,15 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::orderBy('deadline')->get();
         return view('superadmin.tasks.index', compact('tasks'));
     }
 
     public function create()
     {
-        return view('superadmin.tasks.create');
+        $managers = User::where('role_id', Role::where('name', 'manager')->first()->id)->get();
+        // dd($managers);
+        return view('superadmin.tasks.create', compact('managers'));
     }
 
     public function store(Request $request)
@@ -25,26 +28,30 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'manager_id' => 'required|exists:users,id',
         ]);
 
-        Task::create($request->only('title', 'description'));
+        Task::create($request->only('title', 'description', 'deadline', 'manager_id'));
 
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
     public function edit(Task $task)
     {
-        return view('superadmin.tasks.edit', compact('task'));
+        $managers = User::where('role_id', Role::where('name', 'manager')->first()->id)->get();
+        return view('superadmin.tasks.edit', compact('task', 'managers'));
     }
 
     public function update(Request $request, Task $task)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
+            'deadline' => 'nullable|date',
+            'manager_id' => 'required|exists:users,id',
         ]);
 
-        $task->update($request->only('title', 'description'));
+        $task->update($validated);
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }

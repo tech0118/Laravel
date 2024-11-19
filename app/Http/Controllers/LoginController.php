@@ -21,9 +21,12 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            if (Auth::user()->role == 1) {
+            if (Auth::user()->role_id == 1) {
                 return redirect('')->route('tasks.index');
-            } else {
+            }elseif(Auth::user()->role_id == 3){
+                return redirect('')->route('manager.tasks.index');
+            }
+            else {
                 return redirect('')->route('user.tasks.index');
             }
         }

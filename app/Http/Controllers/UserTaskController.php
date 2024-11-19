@@ -12,6 +12,7 @@ class UserTaskController extends Controller
     public function index()
     {
         $tasks = Auth::user()->tasks;
+        // dd($tasks);
         return view('user.tasks.index', compact('tasks'));
     }
 
@@ -23,7 +24,6 @@ class UserTaskController extends Controller
 
         return view('user.tasks.show', compact('task', 'status', 'comments'));
     }
-
 
     public function updateStatus(Request $request, Task $task)
     {

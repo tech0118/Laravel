@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'deadline','manager_id'];
 
     public function users()
     {
@@ -17,5 +17,10 @@ class Task extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
     }
 }
