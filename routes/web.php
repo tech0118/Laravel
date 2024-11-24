@@ -56,3 +56,5 @@ Route::middleware(['auth', 'role:3'])->prefix('manager')->as('manager.')->group(
 });
 // Logout Route
 Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::patch('/tasks/{task}/user/{user}/status', [ManagerTaskController::class, 'updateUserStatus'])->name('tasks.updateUserStatus');

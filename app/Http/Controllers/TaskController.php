@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\Task;
+use App\Models\TaskUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,15 +77,20 @@ class TaskController extends Controller
 
     public function storeComment(Request $request, Task $task)
     {
+        // dd("hi");
         $request->validate([
             'comment' => 'required|string',
         ]);
 
-        $task->comments()->create([
-            'user_id' => Auth::id(),
-            'comment' => $request->comment,
-        ]);
 
+        $taskUser = TaskUser::where('task_id', $task->id)
+            ->where('user_id', Auth::id())
+            ->first();
+        // dd($taskUser);
+
+        if ($taskUser) {
+            $taskUser->update(['comments' => $request->comment]);
+        }
         return back()->with('success', 'Comment added successfully.');
     }
 }

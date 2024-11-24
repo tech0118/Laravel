@@ -25,6 +25,25 @@ class ManagerTaskController extends Controller
         return view('manager.tasks.create', compact('users'));
     }
 
+    public function updateUserStatus(Request $request, $taskId, $userId)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,completed',
+        ]);
+
+        $task = Task::findOrFail($taskId);
+
+        // Ensure the logged-in manager is authorized to update the task
+        if ($task->manager_id !== Auth::id()) {
+            return back()->with('error', 'Unauthorized to update this task.');
+        }
+
+        // Update the status for the specific user-task relationship
+        $task->users()->updateExistingPivot($userId, ['status' => $validated['status']]);
+
+        return back()->with('success', 'User task status updated successfully.');
+    }
+
     // Store a newly created task
     public function store(Request $request)
     {

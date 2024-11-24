@@ -48,7 +48,7 @@ class AdminSeeder extends Seeder
             'name'=>'vishal',
             'email'=>'vishal@gmail.com',
             'password'=>Hash::make('1234'),
-            'role_id'=>2
+            'role_id'=>3
         ]);
     }
 }
